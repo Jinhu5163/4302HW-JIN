@@ -1,71 +1,83 @@
 import numpy as np
-from petsc4py import PETSc
+import matplotlib.pyplot as plt
 
-def read_hdf5_vec(filename, vec_name):
+m_vals = np.array([40, 80, 160, 320, 640, 1280], dtype=float)
+h_vals = 1.0 / m_vals
+
+
+err_k1 = np.array([
+    5.023920940926e-04,  # m=40
+    1.257960768166e-04,  # m=80
+    3.147470911301e-05,  # m=160
+    7.871946502190e-06,  # m=320
+    1.968398945792e-06,  # m=640
+    4.921519615457e-07   # m=1280
+], dtype=float)
+
+err_k5 = np.array([
+    1.265333861435e-02,  # m=40
+    3.150730544203e-03,  # m=80
+    7.872319001570e-04,  # m=160
+    1.968214272043e-04,  # m=320
+    4.921139569469e-05,  # m=640
+    1.230387616560e-05   # m=1280
+], dtype=float)
+err_k10 = np.array([
+    5.414122578700e-02,  # m=40
+    1.327432757158e-02,  # m=80
+    3.304162937906e-03,  # m=160
+    8.253360918649e-04,  # m=320
+    2.063139840221e-04,  # m=640
+    5.158023630201e-05   # m=1280
+], dtype=float)
+
+def fit_order(h, e):
     """
-    Read PETSc HDF5 viewer output and convert to numpy arrays.
-    
-    Parameters:
-    filename: str - path to the HDF5 file
-    vec_name: str - name of the vector to read  
-    
-    Returns:
-    numpy array containing the data
+    Fit log(e) = p*log(h) + b, return slope p (order) and intercept b.
     """
-    # Create a viewer for reading HDF5 files
-    viewer = PETSc.Viewer().createHDF5(filename, 'r')   
-    
-    # Create a Vec to load the data
-    vec = PETSc.Vec().create(comm=PETSc.COMM_WORLD)
-    vec.setName(vec_name)
-    vec.load(viewer)
-   
-    # Convert to numpy array
-    array = vec.getArray()
-    
-    # Clean up
-    vec.destroy()
-    viewer.destroy()
-    
-    return array.copy()
+    coeffs = np.polyfit(np.log(h), np.log(e), 1)
+    p = coeffs[0]
+    b = coeffs[1]
+    return p, b
 
-
-def plot_bvp_solution(x, u_numeric, u_exact):
+def pairwise_orders(e):
     """
-    Plot the numerical and exact solutions of the BVP.
-    
-    Parameters:
-    x: numpy array - grid points
-    u_numeric: numpy array - numerical solution
-    u_exact: numpy array - exact solution
+    Since h halves each time, estimated local order is log2(e_i / e_{i+1}).
     """
-    import matplotlib.pyplot as plt
-    
-    fig, ax1 = plt.subplots(figsize=(10, 6))
-    ax2 = ax1.twinx()
+    return np.log2(e[:-1] / e[1:])
 
-    ax1.plot(x, u_numeric, 'b-', label='Numerical Solution', linewidth=2)
-    ax1.plot(x, u_exact, 'r--', label='Exact Solution', linewidth=2)
-    ax1.set_xlabel('x', fontsize=14)
-    ax1.set_ylabel('u(x)', fontsize=14)
-    ax1.set_title('BVP Numerical vs Exact Solution', fontsize=16)
-    ax1.legend(fontsize=12)
-    ax1 .grid(True)
 
-    ax2.plot(x, u_numeric - u_exact, 'g--', label='Error', linewidth=1)
-    ax2.set_ylabel('Error', fontsize=14)
-    ax2.legend(loc='lower right', fontsize=12)
-    ax2.set_ylim(-np.max(np.abs(u_numeric - u_exact)) * 3., np.max(np.abs(u_numeric - u_exact)) * 3.)
+p1, b1 = fit_order(h_vals, err_k1)
+p5, b5 = fit_order(h_vals, err_k5)
+p10, b10 = fit_order(h_vals, err_k10)
 
-    plt.show()
+print("Estimated convergence orders from log-log fit:")
+print(f"  k=1  : p = {p1:.6f}")
+print(f"  k=5  : p = {p5:.6f}")
+print(f"  k=10 : p = {p10:.6f}")
 
-if __name__ == "__main__":
-    # Example usage
-    # read numerical and exact solutions from HDF5 files
-    h5_filename = 'bvp_solution.h5'  # Update with your actual filename
-    u = read_hdf5_vec(h5_filename, 'u') 
-    u_exact = read_hdf5_vec(h5_filename, 'uexact')
+print("\nPairwise estimated orders (log2(E_coarse/E_fine)):")
+print("  k=1 :", pairwise_orders(err_k1))
+print("  k=5 :", pairwise_orders(err_k5))
+print("  k=10:", pairwise_orders(err_k10))
 
-    x = np.linspace(0, 1, len(u))  
-    
-    plot_bvp_solution(x, u, u_exact)
+
+ref_scale = err_k5[0] / (h_vals[0] ** 2) if err_k5[0] > 0 else 1.0
+err_ref = ref_scale * h_vals**2
+
+
+plt.figure(figsize=(9, 6))
+plt.loglog(h_vals, err_k1, 'o-', label=f'k=1 (fit slope ~ {p1:.2f})')
+plt.loglog(h_vals, err_k5, 's-', label=f'k=5 (fit slope ~ {p5:.2f})')
+plt.loglog(h_vals, err_k10, '^-', label=f'k=10 (fit slope ~ {p10:.2f})')
+plt.loglog(h_vals, err_ref, '--', label=r'Reference $O(h^2)$')
+
+
+
+plt.xlabel('h = 1/m')
+plt.ylabel('Relative error')
+plt.title('BVP Convergence of Error vs h (gamma = 0)')
+plt.grid(True, which='both', ls='--', alpha=0.5)
+plt.legend()
+plt.tight_layout()
+plt.show()
