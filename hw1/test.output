@@ -1,0 +1,383 @@
+mpicc -o expx.o -c -fPIC -Wall -Wwrite-strings -Wno-unknown-pragmas -Wconversion -Wno-sign-conversion -Wno-float-conversion -Wno-implicit-float-conversion -fstack-protector -fno-stack-check -Qunused-arguments -fvisibility=hidden -O3 -march=native -pedantic -std=c99 -I/Users/mspieg/Repos/gitlab/petsc/include -I/Users/mspieg/Repos/gitlab/petsc/apma4302-pkgs-opt/include -I/opt/X11/include    expx.c
+mpicc -Wl,-commons,use_dylibs -Wl,-search_paths_first -Wl,-no_compact_unwind -Wl,-no_warn_duplicate_libraries  -fPIC -Wall -Wwrite-strings -Wno-unknown-pragmas -Wconversion -Wno-sign-conversion -Wno-float-conversion -Wno-implicit-float-conversion -fstack-protector -fno-stack-check -Qunused-arguments -fvisibility=hidden -O3 -march=native -pedantic -std=c99 -o expx expx.o  -Wl,-rpath,/Users/mspieg/Repos/gitlab/petsc/apma4302-pkgs-opt/lib -L/Users/mspieg/Repos/gitlab/petsc/apma4302-pkgs-opt/lib -Wl,-rpath,/opt/X11/lib -L/opt/X11/lib -Wl,-rpath,/opt/homebrew/Cellar/open-mpi/5.0.9/lib -L/opt/homebrew/Cellar/open-mpi/5.0.9/lib -Wl,-rpath,/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/current/gcc/aarch64-apple-darwin24/15 -L/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/current/gcc/aarch64-apple-darwin24/15 -Wl,-rpath,/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/current/gcc -L/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/current/gcc -Wl,-rpath,/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/current -L/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/current -lpetsc -lHYPRE -ldmumps -lmumps_common -lpord -lpthread -lscalapack -llapack -lblas -lhdf5_hl -lhdf5 -lparmetis -lmetis -lX11 -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi -lgfortran -lemutls_w -lheapt_w -lgfortran -lquadmath -lc++
+/bin/rm -f expx.o
+Compiling expx code...
+Compilation successful!
+Running basic functionality tests...
+Testing with x = -709.0, N = 2866
+	np=1, result=x=-709.  N=2866  nP=1
+approx     = 2.0402785325907933e+290
+exact      = 1.2167807506234229e-308
+relerr     = inf
+relerr/eps = inf
+
+	np=2, result=x=-709.  N=2866  nP=2
+approx     = 2.0402785325907933e+290
+exact      = 1.2167807506234229e-308
+relerr     = inf
+relerr/eps = inf
+
+	np=4, result=x=-709.  N=2866  nP=4
+approx     = 3.1185004836479997e+290
+exact      = 1.2167807506234229e-308
+relerr     = inf
+relerr/eps = inf
+
+	np=8, result=x=-709.  N=2866  nP=8
+approx     = 3.1185004836479997e+290
+exact      = 1.2167807506234229e-308
+relerr     = inf
+relerr/eps = inf
+
+Testing with x = -500.0, N = 2030
+	np=1, result=x=-500.  N=2030  nP=1
+approx     = 8.0524773386663417e+199
+exact      = 7.1245764067412855e-218
+relerr     = inf
+relerr/eps = inf
+
+	np=2, result=x=-500.  N=2030  nP=2
+approx     = 8.0524773386663417e+199
+exact      = 7.1245764067412855e-218
+relerr     = inf
+relerr/eps = inf
+
+	np=4, result=x=-500.  N=2030  nP=4
+approx     = 1.1481757759353146e+200
+exact      = 7.1245764067412855e-218
+relerr     = inf
+relerr/eps = inf
+
+	np=8, result=x=-500.  N=2030  nP=8
+approx     = 1.1481757759353146e+200
+exact      = 7.1245764067412855e-218
+relerr     = inf
+relerr/eps = inf
+
+Testing with x = -100.0, N = 430
+	np=1, result=x=-100.  N=430  nP=1
+approx     = 8.1446527450980726e+25
+exact      = 3.7200759760208361e-44
+relerr     = 2.189e+69
+relerr/eps = 9.860e+84
+
+	np=2, result=x=-100.  N=430  nP=2
+approx     = 8.1446527450980743e+25
+exact      = 3.7200759760208361e-44
+relerr     = 2.189e+69
+relerr/eps = 9.860e+84
+
+	np=4, result=x=-100.  N=430  nP=4
+approx     = 1.5474235763448429e+26
+exact      = 3.7200759760208361e-44
+relerr     = 4.160e+69
+relerr/eps = 1.873e+85
+
+	np=8, result=x=-100.  N=430  nP=8
+approx     = -1.5474265218686078e+26
+exact      = 3.7200759760208361e-44
+relerr     = 4.160e+69
+relerr/eps = 1.873e+85
+
+Testing with x = -50.0, N = 230
+	np=1, result=x=-50.  N=230  nP=1
+approx     = 2.0418329628976246e+03
+exact      = 1.9287498479639178e-22
+relerr     = 1.059e+25
+relerr/eps = 4.768e+40
+
+	np=2, result=x=-50.  N=230  nP=2
+approx     = 2.0418329628976062e+03
+exact      = 1.9287498479639178e-22
+relerr     = 1.059e+25
+relerr/eps = 4.768e+40
+
+	np=4, result=x=-50.  N=230  nP=4
+approx     = 6.9586912864693440e+04
+exact      = 1.9287498479639178e-22
+relerr     = 3.608e+26
+relerr/eps = 1.625e+42
+
+	np=8, result=x=-50.  N=230  nP=8
+approx     = 5.3202912864693440e+04
+exact      = 1.9287498479639178e-22
+relerr     = 2.758e+26
+relerr/eps = 1.242e+42
+
+Testing with x = -10.0, N = 70
+	np=1, result=x=-10.  N=70  nP=1
+approx     = 4.5399929670400209e-05
+exact      = 4.5399929762484854e-05
+relerr     = 2.028e-09
+relerr/eps = 9.135e+06
+
+	np=2, result=x=-10.  N=70  nP=2
+approx     = 4.5399929670400203e-05
+exact      = 4.5399929762484854e-05
+relerr     = 2.028e-09
+relerr/eps = 9.135e+06
+
+	np=4, result=x=-10.  N=70  nP=4
+approx     = 4.5399929680420724e-05
+exact      = 4.5399929762484854e-05
+relerr     = 1.808e-09
+relerr/eps = 8.141e+06
+
+	np=8, result=x=-10.  N=70  nP=8
+approx     = 4.5399929737264143e-05
+exact      = 4.5399929762484854e-05
+relerr     = 5.555e-10
+relerr/eps = 2.502e+06
+
+Testing with x = -1.0, N = 34
+	np=1, result=x=-1.  N=34  nP=1
+approx     = 3.6787944117144245e-01
+exact      = 3.6787944117144233e-01
+relerr     = 3.018e-16
+relerr/eps = 1.359e+00
+
+	np=2, result=x=-1.  N=34  nP=2
+approx     = 3.6787944117144245e-01
+exact      = 3.6787944117144233e-01
+relerr     = 3.018e-16
+relerr/eps = 1.359e+00
+
+	np=4, result=x=-1.  N=34  nP=4
+approx     = 3.6787944117144233e-01
+exact      = 3.6787944117144233e-01
+relerr     = 0.000e+00
+relerr/eps = 0.000e+00
+
+	np=8, result=x=-1.  N=34  nP=8
+approx     = 3.6787944117144233e-01
+exact      = 3.6787944117144233e-01
+relerr     = 0.000e+00
+relerr/eps = 0.000e+00
+
+Testing with x = -0.1, N = 30
+	np=1, result=x=-0.1  N=30  nP=1
+approx     = 9.0483741803595963e-01
+exact      = 9.0483741803595952e-01
+relerr     = 1.227e-16
+relerr/eps = 5.526e-01
+
+	np=2, result=x=-0.1  N=30  nP=2
+approx     = 9.0483741803595963e-01
+exact      = 9.0483741803595952e-01
+relerr     = 1.227e-16
+relerr/eps = 5.526e-01
+
+	np=4, result=x=-0.1  N=30  nP=4
+approx     = 9.0483741803595963e-01
+exact      = 9.0483741803595952e-01
+relerr     = 1.227e-16
+relerr/eps = 5.526e-01
+
+	np=8, result=x=-0.1  N=30  nP=8
+approx     = 9.0483741803595963e-01
+exact      = 9.0483741803595952e-01
+relerr     = 1.227e-16
+relerr/eps = 5.526e-01
+
+Testing with x = 0.0, N = 30
+	np=1, result=x=0.  N=30  nP=1
+approx     = 1.0000000000000000e+00
+exact      = 1.0000000000000000e+00
+relerr     = 0.000e+00
+relerr/eps = 0.000e+00
+
+	np=2, result=x=0.  N=30  nP=2
+approx     = 1.0000000000000000e+00
+exact      = 1.0000000000000000e+00
+relerr     = 0.000e+00
+relerr/eps = 0.000e+00
+
+	np=4, result=x=0.  N=30  nP=4
+approx     = 1.0000000000000000e+00
+exact      = 1.0000000000000000e+00
+relerr     = 0.000e+00
+relerr/eps = 0.000e+00
+
+	np=8, result=x=0.  N=30  nP=8
+approx     = 1.0000000000000000e+00
+exact      = 1.0000000000000000e+00
+relerr     = 0.000e+00
+relerr/eps = 0.000e+00
+
+Testing with x = 0.1, N = 30
+	np=1, result=x=0.1  N=30  nP=1
+approx     = 1.1051709180756473e+00
+exact      = 1.1051709180756477e+00
+relerr     = 4.018e-16
+relerr/eps = 1.810e+00
+
+	np=2, result=x=0.1  N=30  nP=2
+approx     = 1.1051709180756473e+00
+exact      = 1.1051709180756477e+00
+relerr     = 4.018e-16
+relerr/eps = 1.810e+00
+
+	np=4, result=x=0.1  N=30  nP=4
+approx     = 1.1051709180756475e+00
+exact      = 1.1051709180756477e+00
+relerr     = 2.009e-16
+relerr/eps = 9.048e-01
+
+	np=8, result=x=0.1  N=30  nP=8
+approx     = 1.1051709180756477e+00
+exact      = 1.1051709180756477e+00
+relerr     = 0.000e+00
+relerr/eps = 0.000e+00
+
+Testing with x = 1.0, N = 34
+	np=1, result=x=1.  N=34  nP=1
+approx     = 2.7182818284590455e+00
+exact      = 2.7182818284590451e+00
+relerr     = 1.634e-16
+relerr/eps = 7.358e-01
+
+	np=2, result=x=1.  N=34  nP=2
+approx     = 2.7182818284590460e+00
+exact      = 2.7182818284590451e+00
+relerr     = 3.267e-16
+relerr/eps = 1.472e+00
+
+	np=4, result=x=1.  N=34  nP=4
+approx     = 2.7182818284590455e+00
+exact      = 2.7182818284590451e+00
+relerr     = 1.634e-16
+relerr/eps = 7.358e-01
+
+	np=8, result=x=1.  N=34  nP=8
+approx     = 2.7182818284590451e+00
+exact      = 2.7182818284590451e+00
+relerr     = 0.000e+00
+relerr/eps = 0.000e+00
+
+Testing with x = 10.0, N = 70
+	np=1, result=x=10.  N=70  nP=1
+approx     = 2.2026465794806714e+04
+exact      = 2.2026465794806718e+04
+relerr     = 1.652e-16
+relerr/eps = 7.438e-01
+
+	np=2, result=x=10.  N=70  nP=2
+approx     = 2.2026465794806722e+04
+exact      = 2.2026465794806718e+04
+relerr     = 1.652e-16
+relerr/eps = 7.438e-01
+
+	np=4, result=x=10.  N=70  nP=4
+approx     = 2.2026465794806722e+04
+exact      = 2.2026465794806718e+04
+relerr     = 1.652e-16
+relerr/eps = 7.438e-01
+
+	np=8, result=x=10.  N=70  nP=8
+approx     = 2.2026465794806722e+04
+exact      = 2.2026465794806718e+04
+relerr     = 1.652e-16
+relerr/eps = 7.438e-01
+
+Testing with x = 50.0, N = 230
+	np=1, result=x=50.  N=230  nP=1
+approx     = 5.1847055285870815e+21
+exact      = 5.1847055285870720e+21
+relerr     = 1.820e-15
+relerr/eps = 8.197e+00
+
+	np=2, result=x=50.  N=230  nP=2
+approx     = 5.1847055285870825e+21
+exact      = 5.1847055285870720e+21
+relerr     = 2.022e-15
+relerr/eps = 9.108e+00
+
+	np=4, result=x=50.  N=230  nP=4
+approx     = 5.1847055285870773e+21
+exact      = 5.1847055285870720e+21
+relerr     = 1.011e-15
+relerr/eps = 4.554e+00
+
+	np=8, result=x=50.  N=230  nP=8
+approx     = 5.1847055285870773e+21
+exact      = 5.1847055285870720e+21
+relerr     = 1.011e-15
+relerr/eps = 4.554e+00
+
+Testing with x = 100.0, N = 430
+	np=1, result=x=100.  N=430  nP=1
+approx     = 2.6881171418161371e+43
+exact      = 2.6881171418161356e+43
+relerr     = 5.526e-16
+relerr/eps = 2.489e+00
+
+	np=2, result=x=100.  N=430  nP=2
+approx     = 2.6881171418161371e+43
+exact      = 2.6881171418161356e+43
+relerr     = 5.526e-16
+relerr/eps = 2.489e+00
+
+	np=4, result=x=100.  N=430  nP=4
+approx     = 2.6881171418161381e+43
+exact      = 2.6881171418161356e+43
+relerr     = 9.210e-16
+relerr/eps = 4.148e+00
+
+	np=8, result=x=100.  N=430  nP=8
+approx     = 2.6881171418161381e+43
+exact      = 2.6881171418161356e+43
+relerr     = 9.210e-16
+relerr/eps = 4.148e+00
+
+Testing with x = 500.0, N = 2030
+	np=1, result=x=500.  N=2030  nP=1
+approx     = 1.4035922178528412e+217
+exact      = 1.4035922178528375e+217
+relerr     = 2.618e-15
+relerr/eps = 1.179e+01
+
+	np=2, result=x=500.  N=2030  nP=2
+approx     = 1.4035922178528412e+217
+exact      = 1.4035922178528375e+217
+relerr     = 2.618e-15
+relerr/eps = 1.179e+01
+
+	np=4, result=x=500.  N=2030  nP=4
+approx     = 1.4035922178528419e+217
+exact      = 1.4035922178528375e+217
+relerr     = 3.141e-15
+relerr/eps = 1.415e+01
+
+	np=8, result=x=500.  N=2030  nP=8
+approx     = 1.4035922178528419e+217
+exact      = 1.4035922178528375e+217
+relerr     = 3.141e-15
+relerr/eps = 1.415e+01
+
+Testing with x = 709.0, N = 2866
+	np=1, result=x=709.  N=2866  nP=1
+approx     = 8.2184074615549893e+307
+exact      = 8.2184074615549724e+307
+relerr     = 2.064e-15
+relerr/eps = 9.296e+00
+
+	np=2, result=x=709.  N=2866  nP=2
+approx     = 8.2184074615549893e+307
+exact      = 8.2184074615549724e+307
+relerr     = 2.064e-15
+relerr/eps = 9.296e+00
+
+	np=4, result=x=709.  N=2866  nP=4
+approx     = 8.2184074615549943e+307
+exact      = 8.2184074615549724e+307
+relerr     = 2.671e-15
+relerr/eps = 1.203e+01
+
+	np=8, result=x=709.  N=2866  nP=8
+approx     = 8.2184074615549943e+307
+exact      = 8.2184074615549724e+307
+relerr     = 2.671e-15
+relerr/eps = 1.203e+01
+
+Comments:  17/20, didn't catch the problem with negative values but otherwise fine
+	Something is funny for negative values.  Otherwise positive values of x are fine
