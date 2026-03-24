@@ -1,0 +1,13 @@
+-da_grid_x 9
+-da_grid_y 9
+-da_refine 3
+
+-snes_monitor
+-ksp_monitor
+
+-snes_atol 1e-10
+-snes_rtol 0
+-snes_stol 0
+
+-ksp_type preonly
+-pc_type lu

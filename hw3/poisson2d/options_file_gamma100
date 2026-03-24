@@ -1,0 +1,9 @@
+-da_grid_x 9
+-da_grid_y 9
+-da_refine 3
+
+-snes_monitor
+-ksp_monitor
+
+-rct_gamma 100
+-rct_p 3

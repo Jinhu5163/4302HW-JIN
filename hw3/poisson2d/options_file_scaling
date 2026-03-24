@@ -1,0 +1,4 @@
+-rct_gamma 100
+-rct_p 3
+-snes_monitor
+-log_view
